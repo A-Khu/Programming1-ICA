@@ -1,0 +1,132 @@
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ICA29
+{
+    class Program
+    {
+        static string[] mArray = new string[] { };
+
+        
+
+        static void Main(string[] args)
+        {
+            int iSelect;
+            int a = mArray.Length;
+            bool bError = false;
+
+
+            Console.WriteLine("Please choose from the following items:");
+            Console.WriteLine("0. Create a new series of insults.");
+            Console.WriteLine("1. Save insults to a file.");
+            Console.WriteLine("2. Load insults from a file.");
+            Console.WriteLine("3. Add insults to an existing file.");
+            Console.WriteLine("4. Find all the insults for a person.");
+            Console.WriteLine("5. Exit the program.");
+            Console.Write("What is your selection? ");
+
+            do
+            {
+                try
+                {
+                    bError = false;
+                    iSelect = int.Parse(Console.ReadLine());
+
+                    if ((iSelect >= 0) && (iSelect <= 5))
+                    {
+                        switch (iSelect)
+                        {
+                            case 0:
+
+                                InsCreate();
+
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                            case 5:
+                                Console.Write("Goodbye!");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Console.Write("Pelase input an integer value between 0 and 5. ");
+                        bError = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.Write("Please choose a proper value ");
+                    bError = true;
+                }
+            }
+            while (bError == true);
+
+            Console.ReadLine();
+        }
+
+        // Selection 0
+
+        static public void InsCreate()
+        {
+            int numIns = GetValue("Enter the number of insults to generate (1 - 1000): ", 1, 1000);
+            int numNVO = GetValue("Enter the number of names, verbs, and objects (3 - 10): ", 3, 10);
+
+            string[,] sGenIns = new string[numNVO,numNVO];
+            string sInput;
+
+            int[] GenIns = new int[numNVO];
+
+            for (int i = 0; i < GenIns.Length; i++)
+            {
+                Console.Write("Please enter name #{0}: ", i);
+                sInput = Console.ReadLine();
+                Console.WriteLine();
+
+            }
+        }
+
+        static public int GetValue(string sPrompt, int min, int max)
+        {
+            int MaxIns = 0;
+            bool bError = false;
+
+            do
+            {
+                bError = false;
+                Console.Write(sPrompt);
+
+                try
+                {
+                    MaxIns = int.Parse(Console.ReadLine());
+
+                    if ((MaxIns < min) || (MaxIns > max))
+                    {
+                        Console.Write("Please enter a number between {0} and {1}", min, max);
+                        Console.WriteLine();
+                        bError = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.Write("Please input a valid answer");
+                    Console.WriteLine();
+                    bError = true;
+                }
+            }
+            while (bError == true);
+
+            return MaxIns;
+        }
+    }
+}
