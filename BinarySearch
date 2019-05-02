@@ -1,0 +1,76 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BinarySearchTest
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] IntArray = new int[20];
+
+            Random rnd = new Random();
+
+            for (int i = 0; i < IntArray.Length; i++)
+            {
+                IntArray[i] = rnd.Next(0, 20);
+            }
+            Array.Sort(IntArray);
+
+            foreach (int i in IntArray)
+            {
+                Console.Write("{0}, ", i);
+            }
+            Console.WriteLine();
+
+            int iRand = rnd.Next(0, 20);
+            Console.WriteLine(iRand);
+
+            int iCount = BinarySearch(IntArray, iRand, 0, IntArray.Length - 1);
+
+            Console.Write(iCount);
+            Console.ReadLine();
+        }
+
+        public static int BinarySearch(int[] iArray, int iSearch, int low, int high)
+        {
+            int iCount = 0;
+            int iLower = low;
+            int iUpper = high;
+            int iMiddle = 0;
+            int iFoundAt = -1;
+
+            while ((iLower <= iUpper) && (iFoundAt == -1))
+            {
+                iMiddle = (iLower + iUpper) / 2;
+                if (iSearch > iArray[iMiddle])
+                {
+                    iLower = iMiddle + 1;
+                }
+                else if (iSearch < iArray[iMiddle])
+                {
+                    iUpper = iMiddle - 1;
+                }
+                else
+                {
+                    iFoundAt = iMiddle;
+                    if (iFoundAt == iArray[iMiddle] - 1)
+                    {
+                        iCount++;
+                        iArray[iMiddle] = iArray[iMiddle] - 1;
+                    }
+                    else if (iFoundAt == iArray[iMiddle] + 1)
+                    {
+                        iCount++;
+                        iArray[iMiddle] = iArray[iMiddle + 1];
+                    }
+                    iCount++;
+                }
+            }
+            return iCount;
+        }
+    }
+}
